@@ -1,6 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-class Habit extends Component {
+class Habit extends PureComponent {
+  componentDidMount() {
+    console.log(`habit: ${this.props.habit.name} mounted`);
+  }
+
+  componentWillUnmount() {
+    console.log(`habit: ${this.props.habit.name} will unmount`);
+  }
+
   handleIncrement = () => {
     // props으로 전달된 콜백함수 호출, 전달받은 각각의 데이터를 다시 인자로 전해줌.
     this.props.onIncrement(this.props.habit);

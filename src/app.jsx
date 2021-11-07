@@ -15,19 +15,30 @@ class App extends Component {
 
   handleIncrement = habit => {
     console.log(`handleIncrement ${habit.name}`);
-    const habits = [...this.state.habits]; // spread syntax
-    const index = habits.indexOf(habit);
-    habits[index].count++;
+    // const habits = [...this.state.habits]; // spread syntax
+    // const index = habits.indexOf(habit);
+    // habits[index].count++;
+    const habits = this.state.habits.map(item => {
+      if (item.id === habit.id) {
+        // 새로운 오브젝트 리턴하는데 count만 새로 덮어줌.
+        return { ...habit, count: habit.count + 1 };
+      }
+      return item;
+    });
     this.setState({ habits: habits });
   };
 
   handleDecrement = habit => {
     console.log(`handleDecrement ${habit.name}`);
-    const habits = [...this.state.habits]; // spread syntax
-    const index = habits.indexOf(habit);
-    const count = habits[index].count - 1;
-    habits[index].count = count < 0 ? 0 : count;
-    this.setState({ habits });
+    const habits = this.state.habits.map(item => {
+      if (item.id === habit.id) {
+        // 새로운 오브젝트 리턴하는데 count만 새로 덮어줌.
+        const count = habit.count - 1;
+        return { ...habit, count: count < 0 ? 0 : count };
+      }
+      return item;
+    });
+    this.setState({ habits: habits });
   };
 
   handleDelete = habit => {
@@ -45,7 +56,9 @@ class App extends Component {
 
   handleReset = () => {
     const habits = this.state.habits.map(habit => {
-      habit.count = 0;
+      if (habit.count !== 0) {
+        return { ...habit, count: 0 };
+      }
       return habit;
     });
     this.setState({ habits });
