@@ -2,7 +2,6 @@ import './app.css';
 import React, { Component } from 'react';
 import Habits from './components/habits';
 import Navbar from './components/navbar';
-import HabitAddForm from './components/habitAddForm';
 
 class App extends Component {
   state = {
